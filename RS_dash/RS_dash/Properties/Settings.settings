@@ -8,5 +8,29 @@
     <Setting Name="RS_dash_ReportExecution_ReportExecutionService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://rusprsql001:80/ReportServer/ReportExecution2005.asmx</Value>
     </Setting>
+    <Setting Name="ReportServer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">rusprsql001</Value>
+    </Setting>
+    <Setting Name="ReportService" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/ReportServer/ReportService2010.asmx</Value>
+    </Setting>
+    <Setting Name="ExecurionService" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/ReportServer/ReportExecution2005.asmx</Value>
+    </Setting>
+    <Setting Name="UseHttps" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="User" Type="System.String" Scope="User">
+      <Value Profile="(Default)">mssql</Value>
+    </Setting>
+    <Setting Name="Password" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ME1YNDMhKmtSZyVTS0VOT01scXM=</Value>
+    </Setting>
+    <Setting Name="Domain" Type="System.String" Scope="User">
+      <Value Profile="(Default)">moneks</Value>
+    </Setting>
+    <Setting Name="UseSSO" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

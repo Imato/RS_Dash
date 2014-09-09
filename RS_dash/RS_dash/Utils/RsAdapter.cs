@@ -12,15 +12,20 @@ namespace RS_dash.Utils
 {
     public class RsAdapter
     {
+        private static NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+
+        private static string server = Properties.Settings.Default.ReportServer;
         private static readonly ReportingService2010 rs = new ReportingService2010();
         private static readonly ReportExecutionService re = new ReportExecutionService();
         private static ReportStore rsStore = ReportStore.getStore();
+        
 
         private static ICredentials credentials;
 
         private static RsAdapter adapter = new RsAdapter();
 
-        public static RsAdapter getAdapter(string server)
+        // брать пользователя и пароль из настроек
+        public static RsAdapter getAdapter()
         {
             credentials = CredentialCache.DefaultCredentials;
             setCredentials(credentials);
@@ -28,7 +33,7 @@ namespace RS_dash.Utils
             return adapter;
         }
 
-        public static RsAdapter getAdapter(string server, string domain, string user, string password)
+        public static RsAdapter getAdapter(string domain, string user, string password)
         {
             credentials = new NetworkCredential(user, password, domain);
             setCredentials(credentials);
@@ -38,8 +43,14 @@ namespace RS_dash.Utils
 
         private static void setServerUrl(string server)
         {
-            rs.Url = "http://" + server + "/ReportServer/ReportService2010.asmx";
-            re.Url = "http://" + server + "/ReportServer/ReportExecution2005.asmx";
+            string protocol;
+            if (Properties.Settings.Default.UseHttps)
+                protocol = "https://";
+            else
+                protocol = "http://";
+
+            rs.Url = protocol  + server + Properties.Settings.Default.ReportService;
+            re.Url = protocol + server + Properties.Settings.Default.ExecurionService;
 
         }
 
@@ -51,6 +62,8 @@ namespace RS_dash.Utils
 
         public List<Report> getReports(string name)
         {
+            log.Debug("Find report {0}", name);
+
             CatalogItem[] items = null;
 
             Property[] property = new Property[]{new Property(){Name = "Recursive", Value="True"}};
@@ -59,7 +72,7 @@ namespace RS_dash.Utils
             condition0.Condition = ConditionEnum.Contains;
             condition0.ConditionSpecified = true;
             condition0.Name = "Name";
-            condition0.Values = name;
+            condition0.Values[0] = name;
 
             SearchCondition condition1 = new SearchCondition();
             condition1.Condition = ConditionEnum.Equals;
@@ -89,9 +102,9 @@ namespace RS_dash.Utils
                 }
             }
 
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
+                log.Fatal("Error by finding report {0}: {1}", name, ex.Message);
             }
 
             return reports;

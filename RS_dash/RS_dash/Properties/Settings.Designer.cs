@@ -42,5 +42,95 @@ namespace RS_dash.Properties {
                 return ((string)(this["RS_dash_ReportExecution_ReportExecutionService"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("rusprsql001")]
+        public string ReportServer {
+            get {
+                return ((string)(this["ReportServer"]));
+            }
+            set {
+                this["ReportServer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("/ReportServer/ReportService2010.asmx")]
+        public string ReportService {
+            get {
+                return ((string)(this["ReportService"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("/ReportServer/ReportExecution2005.asmx")]
+        public string ExecurionService {
+            get {
+                return ((string)(this["ExecurionService"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseHttps {
+            get {
+                return ((bool)(this["UseHttps"]));
+            }
+            set {
+                this["UseHttps"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("mssql")]
+        public string User {
+            get {
+                return ((string)(this["User"]));
+            }
+            set {
+                this["User"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ME1YNDMhKmtSZyVTS0VOT01scXM=")]
+        public string Password {
+            get {
+                return ((string)(this["Password"]));
+            }
+            set {
+                this["Password"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("moneks")]
+        public string Domain {
+            get {
+                return ((string)(this["Domain"]));
+            }
+            set {
+                this["Domain"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseSSO {
+            get {
+                return ((bool)(this["UseSSO"]));
+            }
+            set {
+                this["UseSSO"] = value;
+            }
+        }
     }
 }

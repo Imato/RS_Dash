@@ -14,7 +14,7 @@ namespace RS_Dash_Test
         [TestInitialize]
         public void initTest()
         {
-            rsAdapter = RsAdapter.getAdapter("rusprsql001", "moneks", "avarentsov", "leto@14");
+            rsAdapter = RsAdapter.getAdapter("moneks", "avarentsov", "leto@14");
 
         }
 
@@ -27,7 +27,7 @@ namespace RS_Dash_Test
         [TestMethod]
         public void getReports()
         {
-            rsAdapter = RsAdapter.getAdapter("rusprsql001", "moneks", "avarentsov", "leto@14");
+            rsAdapter = RsAdapter.getAdapter("moneks", "avarentsov", "leto@14");
 
             List<Report> reports = rsAdapter.getReports("RD-010");
             if (reports != null)
