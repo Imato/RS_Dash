@@ -32,5 +32,11 @@
     <Setting Name="UseSSO" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="ReportList" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ReportList.xml</Value>
+    </Setting>
+    <Setting Name="UsedReportList" Type="System.String" Scope="User">
+      <Value Profile="(Default)">UsedReportList.xml</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

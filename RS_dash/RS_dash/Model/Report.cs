@@ -12,6 +12,7 @@ namespace RS_dash.Model
         public string Id { get; set; }
         public string Path { get; set; }
         public string Description { get; set; }
+        public bool Used { get; set; }
 
         public Report(string name, string id, string path, string description)
         {
@@ -19,6 +20,12 @@ namespace RS_dash.Model
             Name = name;
             Id = id;
             Path = path;
+            Used = false;
+        }
+
+        public Report()
+        {
+
         }
     }
 }

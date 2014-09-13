@@ -14,35 +14,23 @@ namespace RS_dash.Utils
     {
         private static NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
-        private static string server = Properties.Settings.Default.ReportServer;
         private static readonly ReportingService2010 rs = new ReportingService2010();
         private static readonly ReportExecutionService re = new ReportExecutionService();
-        private static ReportStore rsStore = ReportStore.getStore();
-        
-
-        private static ICredentials credentials;
+        private static ReportStore rsStore = ReportStore.getStore();        
 
         private static RsAdapter adapter = new RsAdapter();
 
         // брать пользователя и пароль из настроек
         public static RsAdapter getAdapter()
-        {
-            credentials = CredentialCache.DefaultCredentials;
-            setCredentials(credentials);
-            setServerUrl(server);
+        {            
+            setCredentials();
+            setServerUrl();
             return adapter;
         }
 
-        public static RsAdapter getAdapter(string domain, string user, string password)
+        private static void setServerUrl()
         {
-            credentials = new NetworkCredential(user, password, domain);
-            setCredentials(credentials);
-            setServerUrl(server);
-            return adapter;
-        }
-
-        private static void setServerUrl(string server)
-        {
+            string server = Properties.Settings.Default.ReportServer;
             string protocol;
             if (Properties.Settings.Default.UseHttps)
                 protocol = "https://";
@@ -54,11 +42,70 @@ namespace RS_dash.Utils
 
         }
 
-        private static void setCredentials(ICredentials credentials)
+        private static void setCredentials()
         {
+            
+            ICredentials credentials;
+
+            if (Properties.Settings.Default.UseSSO)
+                credentials = CredentialCache.DefaultCredentials;
+            else
+                credentials = new NetworkCredential(
+                                            Properties.Settings.Default.User,
+                                            Security.decrypt(Properties.Settings.Default.Password),
+                                            Properties.Settings.Default.Domain);
+
             rs.Credentials = credentials;
             re.Credentials = credentials;
         }
+
+        public List<Report> getReports()
+        {
+            log.Debug("Get all reports");
+
+            // use local store or update cache
+            if (rsStore.getReportsCount() == 0)
+                updateReportsCache();
+
+            return rsStore.getAllReports();
+        }
+
+        public void updateReportsCache()
+        {
+            log.Debug("Update local reports cache");
+
+            CatalogItem[] items = null;
+
+            try
+            {
+                items = rs.ListChildren("/", true);
+
+            }
+
+            catch(Exception ex)
+            {
+                log.Fatal("Error in updating local reports cache from server: {0}", ex.Message);
+            }
+
+            if (items != null)
+            {
+                for (int i = 0; i < items.Length; i++)
+                {
+                    CatalogItem item = items[i];
+
+                    if (!item.Hidden && item.TypeName == "Report")
+                    {
+                        Report r = new Report(item.Name, item.ID, item.Path, item.Description);
+                        rsStore.addReport(r);
+                    }
+                    
+                }
+
+                rsStore.saveReports();
+            }
+           
+        }
+
 
         public List<Report> getReports(string name)
         {

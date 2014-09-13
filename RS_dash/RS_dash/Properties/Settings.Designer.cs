@@ -132,5 +132,29 @@ namespace RS_dash.Properties {
                 this["UseSSO"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ReportList.xml")]
+        public string ReportList {
+            get {
+                return ((string)(this["ReportList"]));
+            }
+            set {
+                this["ReportList"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("UsedReportList.xml")]
+        public string UsedReportList {
+            get {
+                return ((string)(this["UsedReportList"]));
+            }
+            set {
+                this["UsedReportList"] = value;
+            }
+        }
     }
 }
